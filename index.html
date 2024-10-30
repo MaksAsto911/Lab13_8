@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Використання Масиву Arguments</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+        }
+        .input-field {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #4a90e2;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 5px; /* Додаємо відступи для кнопок */
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Обчислення Середнього, Максимального та Мінімального Значення</h1>
+    
+    <input type="number" id="numberInput1" class="input-field" placeholder="Число 1" />
+    <input type="number" id="numberInput2" class="input-field" placeholder="Число 2" />
+    <input type="number" id="numberInput3" class="input-field" placeholder="Число 3" />
+    
+    <button class="button" onclick="calculate()">Обчислити</button>
+    
+    <h2 class="result" id="result"></h2>
+
+    <script>
+        // Функція для обчислення середнього, максимального і мінімального значення
+        function calculate() {
+            const num1 = parseFloat(document.getElementById("numberInput1").value);
+            const num2 = parseFloat(document.getElementById("numberInput2").value);
+            const num3 = parseFloat(document.getElementById("numberInput3").value);
+            
+            // Перевірка на коректність введення
+            if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+                alert("Будь ласка, введіть три коректних числа.");
+                return;
+            }
+
+            // Додаємо числа до масиву arguments
+            const result = mean(num1, num2, num3);
+
+            document.getElementById("result").innerHTML = 
+                `Середнє: ${result.mean.toFixed(2)}, Максимальне: ${result.max}, Мінімальне: ${result.min}`;
+        }
+
+        // Функція для обчислення середнього, максимального і мінімального значення
+        function mean() {
+            let sum = 0;
+            let max = -Infinity;
+            let min = Infinity;
+
+            for (let i = 0; i < arguments.length; i++) {
+                const value = arguments[i];
+                sum += value;
+                if (value > max) max = value;
+                if (value < min) min = value;
+            }
+
+            return {
+                mean: sum / arguments.length,
+                max: max,
+                min: min
+            };
+        }
+    </script>
+</body>
+</html>
